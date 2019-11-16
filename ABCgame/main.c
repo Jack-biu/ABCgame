@@ -16,25 +16,23 @@ struct Accounts {
 			4 Whether or not the game was overall a win(1) draw or loss(-1)or even(0);
 	*/
 };
-
 int main() {
 	FILE* fp;
 	int Game_accounts_number(); /*return the total number of accounts£¬if don't have the Game_Data file ,return -1 */
 	struct Accounts* Register(int total_number, struct Accounts* p);/*To create an account,return the pointer of the new struct array */
 	int Login(int total_number, struct Accounts* p);/*if username doesn't exist,return -1;else return the number of account*/
-	void Menu();
 	void Start_a_new_game(int n, struct Accounts* p);/*play  game*/
 	void Review_your_game_history(int n, struct Accounts* p);
 	void Clear_your_game_history(int n, struct Accounts* p);
 	void Logout(int total_accounts_number, struct Accounts* p);/* the whole array will be written to the file*/
 	void Output_result(int t, struct Accounts* p,int n);
+	
 	printf("\nA-B-C game against the computer\n");/*if return -1,there is no user;else return number of user*/
 	int total_number = Game_accounts_number();
 	if (total_number < 1)
 		total_number = 1;
-
 	struct Accounts* p = (struct Accounts*)malloc(total_number * sizeof(struct Accounts));/*allocate space for the data*/
-	/*if the file don't exist,create a file */
+	/*if the file doesn't exist,create a file */
 	if (Game_accounts_number() == -1) {
 		fp = fopen("Game_Data.dat", "wb");
 		fclose(fp);
@@ -155,9 +153,7 @@ void Start_a_new_game(int n, struct Accounts* p) {
 		int selection_computer = 0;
 		selection_computer = Generate_computer_selection();
 		/* output the selection of computer return  1(A)  2(B) 3(C)*/
-
 		Output_result(((selection_computer - selection_player + 4) % 3 - 1),p,n);
-
 		p[n].history[0] += 1;
 		if (p[n].history[1] > p[n].history[2])
 			p[n].history[4] = 1;
@@ -181,15 +177,24 @@ void Review_your_game_history(int n, struct Accounts* p) {
 	printf("\nNumber of computer wins:%d\n", p[n].history[2]);
 	printf("\nNumber of draws:%d\n", p[n].history[3]);
 	int temp = p[n].history[0] - p[n].history[3];
-	if (temp == 0)
+	if (temp == 0) {
 		temp = 1;
+	}
 	double  overall_win_percentages = (p[n].history[1] * 1.0) / temp * 100;
 	printf("\nYour overall win percentages:%2.2f%%\n", overall_win_percentages);
 	switch (p[n].history[4]) {
-	case -1:printf("\nthe game was overall a loss\n"); break;
-	case 0:printf("\nthe game was overall a even\n"); break;
-	case 1:printf("\nthe game was overall a win\n"); break;
-	default: printf("error"); break;
+	case -1:
+		printf("\nthe game was overall a loss\n");
+		break;
+	case 0:
+		printf("\nthe game was overall a even\n"); 
+		break;
+	case 1:
+		printf("\nthe game was overall a win\n"); 
+		break;
+	default: 
+		printf("error"); 
+		break;
 	}
 }
 void Clear_your_game_history(int n, struct Accounts* p) {
@@ -242,7 +247,8 @@ void Output_selection(int selection) {
 		printf("\nYour selection is C\n");
 		break;
 	default:
-		printf("\nerror\n"); break;
+		printf("\nerror\n");
+		break;
 	}
 	Sleep(1000);/* stop for a second*/
 }
@@ -260,4 +266,3 @@ void Output_result(int t, struct Accounts* p,int n) {
 		p[n].history[2] += 1;
 	}
 }
-
