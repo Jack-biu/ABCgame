@@ -35,7 +35,6 @@ int main() {
 	if (total_number < 1)
 		total_number = 1;
 	//printf("total_number=%d\n",total_number) ;
-
 	struct Accounts* p = (struct Accounts*)malloc(total_number * sizeof(struct Accounts));/*allocate space for the data*/
 	/*if the file don't exist,create a file */
 	if (Game_accounts_number() == -1) {
@@ -48,7 +47,6 @@ int main() {
 		fread(p, sizeof(struct Accounts), total_number, fp);
 		fclose(fp);
 	}
-
 	int t = 0;/*To make the decision to register or login*/
 	while (1) {
 		int n = -1;/*the number of the account*/
@@ -64,7 +62,7 @@ int main() {
 			if (n = Login(total_number, p) != -1) {
 				int stop = 0;
 				while (stop != 1) {
-					printf("\n1.Start_a_new_game \n2.Review_your_game_history \n3. Clear_your_game_history\n4. Logout\n");
+					printf("\n1.Start a new game \n2.Review your game history \n3.Clear your game history\n4.Logout\n");
 					printf("\nplease input the relevant number:");
 					scanf("%d", &t);
 					switch (t) {
@@ -72,7 +70,7 @@ int main() {
 					case 2:Review_your_game_history(n, p); break;
 					case 3:Clear_your_game_history(n, p); break;
 					case 4:Logout(total_number, p); stop = 1; break;
-					default:printf("error"); break;
+					default:printf("\nerror\n"); break;
 					}
 				}
 			}
@@ -81,18 +79,14 @@ int main() {
 		default:printf("\nerror\n"); break;
 		}
 	}
-
-
-
-
-
 	return 0;
 }
 struct Accounts* Register(int n, struct Accounts* p) {/*To create an account */
 	struct Accounts* new = (struct Accounts*)malloc(sizeof(struct Accounts) * (n + 1));
 	for (int i = 0; i < n; i++) {/*copy data to new struct array*/
-		for (int j = 0; j < 6; j++)
+		for (int j = 0; j < 6; j++) {
 			(new + i)->history[j] = (p + i)->history[j];
+		}
 		strcpy((new + i)->username, (p + i)->username);
 		strcpy((new + i)->password, (p + i)->password);
 	}
@@ -122,8 +116,9 @@ int Login(int total_number, struct Accounts* p) {/*if username doesn't exist,ret
 			do {
 				printf("\nplease input your password:");
 				scanf("%s", t_password);
-				if (strcmp(p[i].password, t_password) != 0)
+				if (strcmp(p[i].password, t_password) != 0) {
 					printf("\nPassword Incorrect!\n");
+				}
 			} while (strcmp(p[i].password, t_password) != 0);
 			printf("\nLogin successful!\n");
 			n = i;
@@ -235,8 +230,6 @@ void Start_a_new_game(int n, struct Accounts* p) {
 	}
 }
 void Review_your_game_history(int n, struct Accounts* p) {
-
-
 	printf("\nNumber of rounds in a game:%d\n", p[n].history[0]);
 	printf("\nNumber of player wins:%d\n", p[n].history[1]);
 	printf("\nNumber of computer wins:%d\n", p[n].history[2]);
@@ -282,39 +275,40 @@ int Game_accounts_number() {/*get the total number of accounts£¬if don't have th
 }
 int Generate_computer_selection() { /* output the selection of computer return  1(A)  2(B) 3(C)*/
 	int i;
-	i = rand() % 3 + 1;/* generate the computer selection*/
+	i = rand() % 3 + 1;/* generate The computer's selection*/
 	switch (i) {
-	case 1:printf("\nThe computer selection is A\n");
+	case 1:
+		printf("\nThe computer's selection is A\n");
 		Sleep(1000);/* stop for a second*/
-
 		break;
-	case 2:printf("\nThe computer selection is B\n");
+	case 2:
+		printf("\nThe computer's selection is B\n");
 		Sleep(1000);/* stop for a second*/
-
 		break;
-	case 3:printf("\nThe computer selection is C\n");
+	case 3:
+		printf("\nThe computer's selection is C\n");
 		Sleep(1000);/* stop for a second*/
-
 		break;
-	default:printf("\nerror\n"); break;
+	default:
+		printf("\nerror\n"); break;
 	}
 	return i;
 }
 void Output_selection(int selection) {/* draw the picture :  1(A)  2(B) 3(C)*/
 	switch (selection) {
-	case 1:printf("\nYour selection is A\n");
+	case 1:
+		printf("\nYour selection is A\n");
 		Sleep(1000);/* stop for a second*/
-
 		break;
-	case 2:printf("\nYour selection is B\n");
+	case 2:
+		printf("\nYour selection is B\n");
 		Sleep(1000);/* stop for a second*/
-
 		break;
-	case 3:printf("\nYour selection is C\n");
+	case 3:
+		printf("\nYour selection is C\n");
 		Sleep(1000);/* stop for a second*/
-
 		break;
-	default:printf("\nerror\n"); break;
+	default:
+		printf("\nerror\n"); break;
 	}
 }
-
