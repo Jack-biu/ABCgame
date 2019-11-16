@@ -9,11 +9,11 @@ struct Accounts {
 	char password[50];
 	int history[5];
 	/*
-			(i) Number of rounds in a game
-			(ii) Number of player wins
-			(iii) Number of computer wins
-			(iv) Number of draws
-			(v) Whether or not the game was overall a win(1) draw or loss(-1)or even(0);
+			0 Number of rounds in a game
+			1 Number of player wins
+			2 Number of computer wins
+			3 Number of draws
+			4 Whether or not the game was overall a win(1) draw or loss(-1)or even(0);
 	*/
 };
 
@@ -27,7 +27,7 @@ int main() {
 	void Review_your_game_history(int n, struct Accounts* p);
 	void Clear_your_game_history(int n, struct Accounts* p);
 	void Logout(int total_accounts_number, struct Accounts* p);/* the whole array will be written to the file*/
-
+	void Output_result(int t, struct Accounts* p,int n);
 	printf("\nA-B-C game against the computer\n");/*if return -1,there is no user;else return number of user*/
 	int total_number = Game_accounts_number();
 	if (total_number < 1)
@@ -64,7 +64,7 @@ int main() {
 					printf("\n1.Start a new name \n2.Review your game history \n3.Clear your game history\n4.Logout\n");
 					printf("\nplease input the relevant number:");
 					scanf("%d", &t);
-					system("cls");
+					//system("cls");
 					switch (t) {
 					case 1:Start_a_new_game(n, p); break;
 					case 2:Review_your_game_history(n, p); break;
@@ -108,7 +108,6 @@ int Login(int total_number, struct Accounts* p) {/*if username doesn't exist,ret
 	for (int i = 0; i < total_number; i++) {
 		if (strcmp(p[i].username, t) == 0) {
 			char t_password[50];
-	
 			do {
 				printf("\nplease input your password:");
 				scanf("%s", t_password);
@@ -118,7 +117,7 @@ int Login(int total_number, struct Accounts* p) {/*if username doesn't exist,ret
 
 			printf("\nLogin successful!\n");
 			Sleep(1000);/* stop for a second*/
-			system("cls");
+			//system("cls");
 			n = i;
 			break;
 		}
@@ -132,6 +131,7 @@ void Start_a_new_game(int n, struct Accounts* p) {
 	srand((unsigned int)time(NULL));/* generate seed for rand()*/
 	int Generate_computer_selection();/* output the selection of computer return  1(A)  2(B) 3(C)*/
 	void Output_selection(int selection);/* draw the picture :  1(A)  2(B) 3(C)*/
+	void Output_result(int t, struct Accounts* p,int n);
 	int selection_player = -1;
 	while (1) {/* do a loop for restart game*/
 		printf("\nA-B-C game against the computer\n");
@@ -152,58 +152,11 @@ void Start_a_new_game(int n, struct Accounts* p) {
 		Sleep(1000);/* stop for a second*/
 		printf("\n111111111111111111111111111111111111111111111\n");
 		Sleep(1000);/* stop for a second*/
+		int selection_computer = 0;
+		selection_computer = Generate_computer_selection();
+		/* output the selection of computer return  1(A)  2(B) 3(C)*/
 
-		switch (Generate_computer_selection()) {/* output the selection of computer return  1(A)  2(B) 3(C)*/
-		case 1:
-			if (selection_player == 3) {
-				
-				p[n].history[1] += 1;
-				break;
-			}
-			if (selection_player == 2) {
-				printf("\nYou lose!!          Computer win!! \n");
-				p[n].history[2] += 1;
-				break;
-			}
-			if (selection_player == 1) {
-				printf("\nYou and  Computer ended in a draw!!\n");
-				p[n].history[3] += 1;
-				break;
-			}
-		case 2:
-			if (selection_player == 3) {
-				printf("\nYou lose!!          Computer win!! \n");
-				p[n].history[2] += 1;
-				break;
-			}
-			if (selection_player == 2) {
-				printf("\nYou and  Computer ended in a draw!!\n");
-				p[n].history[3] += 1;
-				break;
-			}
-			if (selection_player == 1) {
-				printf("\nYou win!!           Computer lose!!\n");
-				p[n].history[1] += 1;
-				break;
-			}
-		case 3:
-			if (selection_player == 3) {
-				printf("\nYou and  Computer ended in a draw!!\n");
-				p[n].history[3] += 1;
-				break;
-			}
-			if (selection_player == 2) {
-				printf("\nYou win!!           Computer lose!!\n");
-				p[n].history[1] += 1;
-				break;
-			}
-			if (selection_player == 1) {
-				printf("\nYou lose!!          Computer win!! \n");
-				p[n].history[2] += 1;
-				break;
-			}
-		default:printf("\nerror\n"); break;
-		}
+		Output_result(((selection_computer - selection_player + 4) % 3 - 1),p,n);
 
 		p[n].history[0] += 1;
 		if (p[n].history[1] > p[n].history[2])
@@ -212,14 +165,14 @@ void Start_a_new_game(int n, struct Accounts* p) {
 			p[n].history[4] = -1;
 		else if (p[n].history[1] == p[n].history[2])
 			p[n].history[4] = 0;
-		int temp = p[n].history[0] - p[n].history[3];
+		int temp = p[n].history[0];
 		if (temp == 0) {
 			temp = 1;
 		}
-		double  overall_win_percentages = (p[n].history[1] * 1.0) / temp * 100;
+		double overall_win_percentages = (p[n].history[1] * 1.0) / temp * 100;
 		printf("\nYour overall win percentages:%2.2f%%\n", overall_win_percentages);
 		Sleep(1000);
-		system("cls");
+		//system("cls");
 	}
 }
 void Review_your_game_history(int n, struct Accounts* p) {
@@ -293,9 +246,18 @@ void Output_selection(int selection) {
 	}
 	Sleep(1000);/* stop for a second*/
 }
-void Output_result(int t) {
+void Output_result(int t, struct Accounts* p,int n) {
 	if (t == 1) {
 		printf("\nYou win!!           Computer lose!!\n");
+		p[n].history[1] += 1;
+	}
+	else if (t == 0) {
+		printf("\nYou and  Computer ended in a draw!!\n");
+		p[n].history[3] += 1;
+	}
+	else if (t == -1) {
+		printf("\nYou lose!!          Computer win!! \n");
+		p[n].history[2] += 1;
 	}
 }
 
