@@ -113,12 +113,10 @@ int Login(int total_number, struct Accounts* p) {/*if username doesn't exist,ret
 	printf("\nplease input your username:");
 	char t[50];
 	scanf("%s", t);
-	//printf("*******t:%s",t);
 	for (int i = 0; i < total_number; i++) {
 		if (strcmp(p[i].username, t) == 0) {
 			char t_password[50];
-			//printf("\n*******p[i].username:%s\n",p[i].username);		
-			//printf("\n*******p[i].password:%s\n",p[i].password);
+	
 			do {
 				printf("\nplease input your password:");
 				scanf("%s", t_password);
@@ -130,31 +128,24 @@ int Login(int total_number, struct Accounts* p) {/*if username doesn't exist,ret
 			break;
 		}
 	}
-	if (n == -1)
+	if (n == -1) {
 		printf("\nThis username doesn't exist!   Please register!\n");
-	//printf("\n*******n=%d\n",n);
+	}
 	return n;
 }
 void Start_a_new_game(int n, struct Accounts* p) {
 	srand((unsigned int)time(NULL));/* generate seed for rand()*/
 	int Generate_computer_selection();/* output the selection of computer return  1(A)  2(B) 3(C)*/
 	void Output_selection(int selection);/* draw the picture :  1(A)  2(B) 3(C)*/
-	/*		(i) Number of rounds in a game
-			(ii) Number of player wins
-			(ii) Number of computer wins
-			(iv) Number of evens
-			(v) Number of draws
-			(vi)Whether or not the game was overall a win(1) draw or loss(-1)or even(0);
-	*/
-	//printf("p[n].history[0]=%d", p[n].history[0]);
 	int selection_player = -1;
 	while (1) {/* do a loop for restart game*/
 		printf("\nA-B-C game against the computer\n");
 		printf("\n1.A         2.B            3.C           4.Quit\n");
 		printf("Please enter your selection:");
 		scanf("%d", &selection_player);
-		if (selection_player == 4)
+		if (selection_player == 4) {
 			break;
+		}
 		if (selection_player < 0 || selection_player > 4) {
 			printf("\nerror input\n");
 			break;
@@ -260,11 +251,6 @@ void Clear_your_game_history(int n, struct Accounts* p) {
 	printf("\nClear your game history successfully\n");
 }
 void Logout(int total_accounts_number, struct Accounts* p) {/* the whole array is written to the file*/
-	//printf("\n*******(p+1)->username=%s\n", (p+1)->username);
-	//for(int i=0;i<6;i++)
-	//{
-	//	printf("p->history[%d]=%d\n", i,(p + 1)->history[i]);
-	//}
 	FILE* fp = fopen("Game_Data.dat", "wb");
 	fwrite(p, sizeof(struct Accounts), total_accounts_number, fp);
 	fclose(fp);
@@ -274,9 +260,7 @@ int Game_accounts_number() {/*get the total number of accounts£¬if don't have th
 	if (!fp)/*if don't have the Game_Data file ,return -1 */
 		return -1;
 	fseek(fp, 0L, SEEK_END);
-	//printf("\n In the function Game_accounts_number(),ftell(fp)=%d\n",ftell(fp));
 	int size = ftell(fp) / sizeof(struct Accounts);
-	//printf("\n In the function Game_accounts_number(),size=%d\n",size);
 	fclose(fp);
 	return size;
 }
@@ -284,35 +268,36 @@ int Generate_computer_selection() { /* output the selection of computer return  
 	int i;
 	i = rand() % 3 + 1;/* generate the computer selection*/
 	switch (i) {
-	case 1:printf("\nThe computer selection is A\n");
+	case 1:
+		printf("\nThe computer selection is A\n");
 		Sleep(1000);/* stop for a second*/
-
 		break;
-	case 2:printf("\nThe computer selection is B\n");
+	case 2:
+		printf("\nThe computer selection is B\n");
 		Sleep(1000);/* stop for a second*/
-
 		break;
-	case 3:printf("\nThe computer selection is C\n");
+	case 3:
+		printf("\nThe computer selection is C\n");
 		Sleep(1000);/* stop for a second*/
-
 		break;
-	default:printf("\nerror\n"); break;
+	default:
+		printf("\nerror\n"); break;
 	}
 	return i;
 }
 void Output_selection(int selection) {/* draw the picture :  1(A)  2(B) 3(C)*/
 	switch (selection) {
-	case 1:printf("\nYour selection is A\n");
+	case 1:
+		printf("\nYour selection is A\n");
 		Sleep(1000);/* stop for a second*/
-
 		break;
-	case 2:printf("\nYour selection is B\n");
+	case 2:
+		printf("\nYour selection is B\n");
 		Sleep(1000);/* stop for a second*/
-
 		break;
-	case 3:printf("\nYour selection is C\n");
+	case 3:
+		printf("\nYour selection is C\n");
 		Sleep(1000);/* stop for a second*/
-
 		break;
 	default:printf("\nerror\n"); break;
 	}
