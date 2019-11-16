@@ -29,7 +29,7 @@ int main() {
 	void Clear_your_game_history(int n, struct Accounts* p);
 	void Logout(int total_accounts_number, struct Accounts* p);/* the whole array will be written to the file*/
 
-	printf("\nrock-scissors-paper game against the computer\n");/*if return -1,there is no user;else return number of user*/
+	printf("\nA-B-C game against the computer\n");/*if return -1,there is no user;else return number of user*/
 	int total_number = Game_accounts_number();
 	//printf("total_number=%d\n",total_number) ;
 	if (total_number < 1)
@@ -137,8 +137,8 @@ int Login(int total_number, struct Accounts* p) {/*if username doesn't exist,ret
 }
 void Start_a_new_game(int n, struct Accounts* p) {
 	srand((unsigned int)time(NULL));/* generate seed for rand()*/
-	int Generate_computer_selection();/* output the selection of computer return  1(rock)  2(scissors) 3(paper)*/
-	void Output_selection(int selection);/* draw the picture :  1(rock)  2(scissors) 3(paper)*/
+	int Generate_computer_selection();/* output the selection of computer return  1(A)  2(B) 3(C)*/
+	void Output_selection(int selection);/* draw the picture :  1(A)  2(B) 3(C)*/
 	/*		(i) Number of rounds in a game
 			(ii) Number of player wins
 			(ii) Number of computer wins
@@ -149,8 +149,8 @@ void Start_a_new_game(int n, struct Accounts* p) {
 	//printf("p[n].history[0]=%d", p[n].history[0]);
 	int selection_player = -1;
 	while (1) {/* do a loop for restart game*/
-		printf("\nrock-scissors-paper game against the computer\n");
-		printf("\n1.rock         2.scissors            3.paper           4.Quit\n");
+		printf("\nA-B-C game against the computer\n");
+		printf("\n1.A         2.B            3.C           4.Quit\n");
 		printf("Please enter your selection:");
 		scanf("%d", &selection_player);
 		if (selection_player == 4)
@@ -167,7 +167,7 @@ void Start_a_new_game(int n, struct Accounts* p) {
 		printf("\n111111111111111111111111111111111111111111111\n");
 		Sleep(1000);/* stop for a second*/
 
-		switch (Generate_computer_selection()) {/* output the selection of computer return  1(rock)  2(scissors) 3(paper)*/
+		switch (Generate_computer_selection()) {/* output the selection of computer return  1(A)  2(B) 3(C)*/
 		case 1:
 			if (selection_player == 3) {
 				printf("\nYou win!!           Computer lose!!\n");
@@ -280,151 +280,39 @@ int Game_accounts_number() {/*get the total number of accounts£¬if don't have th
 	fclose(fp);
 	return size;
 }
-int Generate_computer_selection() { /* output the selection of computer return  1(rock)  2(scissors) 3(paper)*/
+int Generate_computer_selection() { /* output the selection of computer return  1(A)  2(B) 3(C)*/
 	int i;
 	i = rand() % 3 + 1;/* generate the computer selection*/
 	switch (i) {
-	case 1:printf("\nThe computer selection is rock\n");
+	case 1:printf("\nThe computer selection is A\n");
 		Sleep(1000);/* stop for a second*/
-		printf("                          7dgZJ: \n");
-		printf("                  IBBQBBBBBBBBBBBs \n");
-		printf("                 BBBKiiBBB     QBBBBBBB7 \n");
-		printf("             LQBBBB:   BB   .MBBBRKuqBBBB7 \n");
-		printf("           :BBQBBBB    BB  jBB7        DBBJ \n");
-		printf("           BBQ   BB    gBI QB           QQB \n");
-		printf("           BBs   RBB    BB:gQr   .I2    :BQr\n");
-		printf("         ZBBBD    QBB    BBsMQBBBBBB     BB1\n");
-		printf("        BBBrBBL    YBBI  .BBBBBQv.       BBK \n");
-		printf("       :BBi  QBQ     2BBBBBgr           .BBY\n");
-		printf("        BBg   IBBM   IBBBr              7BB:\n");
-		printf("        vBBS    IBBBBBI                 BBB\n");
-		printf("         1BBB    .BBb                  DBBi\n");
-		printf("          :BBBBr.BB:                .5BBB7\n");
-		printf("            rBBBBBQ              .SBBBBK\n");
-		printf("                SBB5          :EBBBBD:\n");
-		printf("                 JBBBv     rQBBBBP.\n");
-		printf("                  .gBBBBBBBBBQJ\n");
-		printf("                     7gBBBB7\n");
+
 		break;
-	case 2:printf("\nThe computer selection is scissors\n");
+	case 2:printf("\nThe computer selection is B\n");
 		Sleep(1000);/* stop for a second*/
-		printf("           iEBBBB2:                        \n");
-		printf("         7BBBQXgBBQBBi                      \n");
-		printf("        rBBQ      sBBBBi                   \n");
-		printf("        BBB         :BQBB.                 \n");
-		printf("        JBB1          7BBQBBBBZr           \n");
-		printf("         uQBQ.          7RBBBBBBBB:          \n");
-		printf("         7BBQB7         BBv   7BBBB          \n");
-		printf("    rBBBBBBBBBBBBBU:    SBB      BBBB.          \n");
-		printf("   BBQBDXJuuXZBBBBBQB   BB:     :BBBBB           \n");
-		printf("  QBB:            iK   rBB      BBr.BBU           \n");
-		printf("  BQB                i1BBS     QBB  BBB           \n");
-		printf("  PBBU            UBBBQBBB   .BBQ   BBB           \n");
-		printf("   ZBBBBg52u5qMBBBBQ.   XBBXBBBr    BBB           \n");
-		printf("                DBBgBBBQBBgqqgBBB  iBQU             \n");
-		printf("                 7BBQi         BB7 BBB            \n");
-		printf("                  BBd         .BBBBBB               \n");
-		printf("                  dBBBDPXEMBBBBBBBB1                \n");
-		printf("                   :MBBBBBBBBBKi        \n");
+
 		break;
-	case 3:printf("\nThe computer selection is paper\n");
+	case 3:printf("\nThe computer selection is C\n");
 		Sleep(1000);/* stop for a second*/
-		printf("                  1BBBBBI    .vI2r          \n");
-		printf("                .BBBPvKBBB JBBBBQBBB:       \n");
-		printf("                BBB:   IBBBBBB:  iBBB       \n");
-		printf("               YBBD    rBBBBv     BBB       \n");
-		printf("               EBBi    qBBBi     XBBBBBBBR. \n");
-		printf("      .RBBBBB7 QBB.    BQB2     KBBBQBQMBBB \n");
-		printf("     iBQBgMBBBBBBB     iSE     BBBBg:   iBBq\n");
-		printf("    BBB.   :BBBQB           XBBQQ      DBBi\n");
-		printf("    QBB7     :QBBi          rBBi     iQBBb \n");
-		printf("      BBBu      PBX                 iBBBB.  \n");
-		printf("      .QBBB.     7B              :QQBBBBBL: \n");
-		printf("        sBBB.                    iBBQBBBBBBM\n");
-		printf("         iBBB                     ..     EBB\n");
-		printf("          QBB                           iBBB\n");
-		printf("         QBBL                 :iiirLKQBBBBB \n");
-		printf("        :BBB                 gQBBBBBBBBBX:  \n");
-		printf("         BBQ.              iBBBQv7r:.       \n");
-		printf("         iBBBL           .QBBB7             \n");
-		printf("          .BBBBi       .MQBBE          \n");
-		printf("            uBBBBM7::SBBBBg.        \n");
-		printf("              7BBBBQBBBQS      \n");
-		printf("                 .ruYi \n");
+
 		break;
 	default:printf("\nerror\n"); break;
 	}
 	return i;
 }
-void Output_selection(int selection) {/* draw the picture :  1(rock)  2(scissors) 3(paper)*/
+void Output_selection(int selection) {/* draw the picture :  1(A)  2(B) 3(C)*/
 	switch (selection) {
-	case 1:printf("\nYour selection is rock\n");
+	case 1:printf("\nYour selection is A\n");
 		Sleep(1000);/* stop for a second*/
-		printf("                          7dgZJ: \n");
-		printf("                  IBBQBBBBBBBBBBBs \n");
-		printf("                 BBBKiiBBB     QBBBBBBB7 \n");
-		printf("             LQBBBB:   BB   .MBBBRKuqBBBB7 \n");
-		printf("           :BBQBBBB    BB  jBB7        DBBJ \n");
-		printf("           BBQ   BB    gBI QB           QQB \n");
-		printf("           BBs   RBB    BB:gQr   .I2    :BQr\n");
-		printf("         ZBBBD    QBB    BBsMQBBBBBB     BB1\n");
-		printf("        BBBrBBL    YBBI  .BBBBBQv.       BBK \n");
-		printf("       :BBi  QBQ     2BBBBBgr           .BBY\n");
-		printf("        BBg   IBBM   IBBBr              7BB:\n");
-		printf("        vBBS    IBBBBBI                 BBB\n");
-		printf("         1BBB    .BBb                  DBBi\n");
-		printf("          :BBBBr.BB:                .5BBB7\n");
-		printf("            rBBBBBQ              .SBBBBK\n");
-		printf("                SBB5          :EBBBBD:\n");
-		printf("                 JBBBv     rQBBBBP.\n");
-		printf("                  .gBBBBBBBBBQJ\n");
-		printf("                     7gBBBB7\n");
+
 		break;
-	case 2:printf("\nYour selection is scissors\n");
+	case 2:printf("\nYour selection is B\n");
 		Sleep(1000);/* stop for a second*/
-		printf("           iEBBBB2:                        \n");
-		printf("         7BBBQXgBBQBBi                      \n");
-		printf("        rBBQ      sBBBBi                   \n");
-		printf("        BBB         :BQBB.                 \n");
-		printf("        JBB1          7BBQBBBBZr           \n");
-		printf("         uQBQ.          7RBBBBBBBB:          \n");
-		printf("         7BBQB7         BBv   7BBBB          \n");
-		printf("    rBBBBBBBBBBBBBU:    SBB      BBBB.          \n");
-		printf("   BBQBDXJuuXZBBBBBQB   BB:     :BBBBB           \n");
-		printf("  QBB:            iK   rBB      BBr.BBU           \n");
-		printf("  BQB                i1BBS     QBB  BBB           \n");
-		printf("  PBBU            UBBBQBBB   .BBQ   BBB           \n");
-		printf("   ZBBBBg52u5qMBBBBQ.   XBBXBBBr    BBB           \n");
-		printf("                DBBgBBBQBBgqqgBBB  iBQU             \n");
-		printf("                 7BBQi         BB7 BBB            \n");
-		printf("                  BBd         .BBBBBB               \n");
-		printf("                  dBBBDPXEMBBBBBBBB1                \n");
-		printf("                   :MBBBBBBBBBKi        \n");
+
 		break;
-	case 3:printf("\nYour selection is paper\n");
+	case 3:printf("\nYour selection is C\n");
 		Sleep(1000);/* stop for a second*/
-		printf("                  1BBBBBI    .vI2r          \n");
-		printf("                .BBBPvKBBB JBBBBQBBB:       \n");
-		printf("                BBB:   IBBBBBB:  iBBB       \n");
-		printf("               YBBD    rBBBBv     BBB       \n");
-		printf("               EBBi    qBBBi     XBBBBBBBR. \n");
-		printf("      .RBBBBB7 QBB.    BQB2     KBBBQBQMBBB \n");
-		printf("     iBQBgMBBBBBBB     iSE     BBBBg:   iBBq\n");
-		printf("    BBB.   :BBBQB           XBBQQ      DBBi\n");
-		printf("    QBB7     :QBBi          rBBi     iQBBb \n");
-		printf("      BBBu      PBX                 iBBBB.  \n");
-		printf("      .QBBB.     7B              :QQBBBBBL: \n");
-		printf("        sBBB.                    iBBQBBBBBBM\n");
-		printf("         iBBB                     ..     EBB\n");
-		printf("          QBB                           iBBB\n");
-		printf("         QBBL                 :iiirLKQBBBBB \n");
-		printf("        :BBB                 gQBBBBBBBBBX:  \n");
-		printf("         BBQ.              iBBBQv7r:.       \n");
-		printf("         iBBBL           .QBBB7             \n");
-		printf("          .BBBBi       .MQBBE          \n");
-		printf("            uBBBBM7::SBBBBg.        \n");
-		printf("              7BBBBQBBBQS      \n");
-		printf("                 .ruYi \n");
+
 		break;
 	default:printf("\nerror\n"); break;
 	}
