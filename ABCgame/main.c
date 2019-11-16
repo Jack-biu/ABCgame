@@ -31,10 +31,8 @@ int main() {
 
 	printf("\nA-B-C game against the computer\n");/*if return -1,there is no user;else return number of user*/
 	int total_number = Game_accounts_number();
-	//printf("total_number=%d\n",total_number) ;
 	if (total_number < 1)
 		total_number = 1;
-	//printf("total_number=%d\n",total_number) ;
 
 	struct Accounts* p = (struct Accounts*)malloc(total_number * sizeof(struct Accounts));/*allocate space for the data*/
 	/*if the file don't exist,create a file */
@@ -81,11 +79,6 @@ int main() {
 		default:printf("\nerror\n"); break;
 		}
 	}
-
-
-
-
-
 	return 0;
 }
 struct Accounts* Register(int n, struct Accounts* p) {/*To create an account */
@@ -104,7 +97,6 @@ struct Accounts* Register(int n, struct Accounts* p) {/*To create an account */
 	/* initialize data*/
 	for (int i = 0; i < 6; i++) {
 		(new + n)->history[i] = 0;
-		//printf("()p+%d)->history[%d]=%d\n", n,i,(new + n)->history[i]);
 	}
 	return new;
 }
