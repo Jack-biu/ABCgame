@@ -48,7 +48,7 @@ int main() {
 	while (1) {
 		int n = -1;/*the number of the account*/
 		printf("\n1.Register         2.Login        3.Exit \n");
-		printf("\nplease input the relevant number:");
+		printf("\nPlease input the relevant number:");
 		scanf("%d", &t);
 		switch (t) {
 		case 1:
@@ -180,21 +180,20 @@ void Review_your_game_history(int n, struct Accounts* p) {
 	if (temp == 0) {
 		temp = 1;
 	}
-	double  overall_win_percentages = (p[n].history[1] * 1.0) / temp * 100;
+	double overall_win_percentages = (p[n].history[1] * 1.0) / temp * 100;
 	printf("\nYour overall win percentages:%2.2f%%\n", overall_win_percentages);
 	switch (p[n].history[4]) {
-	case -1:
-		printf("\nthe game was overall a loss\n");
-		break;
-	case 0:
-		printf("\nthe game was overall a even\n"); 
-		break;
-	case 1:
-		printf("\nthe game was overall a win\n"); 
-		break;
-	default: 
-		printf("error"); 
-		break;
+		case -1:
+			printf("\nthe game was overall a loss\n");
+			break;
+		case 0:
+			printf("\nthe game was overall a even\n"); 
+			break;
+		case 1:
+			printf("\nthe game was overall a win\n"); 
+			break;
+		default: 
+			printf("error"); 
 	}
 }
 void Clear_your_game_history(int n, struct Accounts* p) {
@@ -230,7 +229,7 @@ int Generate_computer_selection() { /* output the selection of computer return  
 		printf("\nThe computer selection is C\n");
 		break;
 	default:
-		printf("\nerror\n"); break;
+		printf("\nerror\n");
 	}
 	Sleep(1000);/* stop for a second*/
 	return i;
@@ -248,7 +247,6 @@ void Output_selection(int selection) {
 		break;
 	default:
 		printf("\nerror\n");
-		break;
 	}
 	Sleep(1000);/* stop for a second*/
 }
