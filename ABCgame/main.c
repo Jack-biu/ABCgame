@@ -25,8 +25,8 @@ int main() {
 	void Review_your_game_history(int n, struct Accounts* p);
 	void Clear_your_game_history(int n, struct Accounts* p);
 	void Logout(int total_accounts_number, struct Accounts* p);/* the whole array will be written to the file*/
-	void Output_result(int t, struct Accounts* p,int n);
-	
+	void Output_result(int t, struct Accounts* p, int n);
+
 	printf("\nA-B-C game against the computer\n");/*if return -1,there is no user;else return number of user*/
 	int total_number = Game_accounts_number();
 	if (total_number < 1)
@@ -100,7 +100,7 @@ struct Accounts* Register(int n, struct Accounts* p) {/*To create an account */
 }
 int Login(int total_number, struct Accounts* p) {/*if username doesn't exist,return -1;else return the number of account*/
 	int n = -1;/*the number of account*/
-	printf("\nplease input your username:");
+	printf("\nPlease input your username:");
 	char t[50];
 	scanf("%s", t);
 	for (int i = 0; i < total_number; i++) {
@@ -112,7 +112,6 @@ int Login(int total_number, struct Accounts* p) {/*if username doesn't exist,ret
 				if (strcmp(p[i].password, t_password) != 0)
 					printf("\nPassword Incorrect!\n");
 			} while (strcmp(p[i].password, t_password) != 0);
-
 			printf("\nLogin successful!\n");
 			Sleep(1000);/* stop for a second*/
 			//system("cls");
@@ -129,7 +128,7 @@ void Start_a_new_game(int n, struct Accounts* p) {
 	srand((unsigned int)time(NULL));/* generate seed for rand()*/
 	int Generate_computer_selection();/* output the selection of computer return  1(A)  2(B) 3(C)*/
 	void Output_selection(int selection);/* draw the picture :  1(A)  2(B) 3(C)*/
-	void Output_result(int t, struct Accounts* p,int n);
+	void Output_result(int t, struct Accounts* p, int n);
 	int selection_player = -1;
 	while (1) {/* do a loop for restart game*/
 		printf("\nA-B-C game against the computer\n");
@@ -140,7 +139,7 @@ void Start_a_new_game(int n, struct Accounts* p) {
 			break;
 		}
 		if (selection_player < 0 || selection_player > 4) {
-			printf("\nInvalid input!!!\n");
+			printf("\nINVALID INPUT!!!\n");
 			break;
 		}
 		Output_selection(selection_player);
@@ -153,7 +152,7 @@ void Start_a_new_game(int n, struct Accounts* p) {
 		int selection_computer = 0;
 		selection_computer = Generate_computer_selection();
 		/* output the selection of computer return  1(A)  2(B) 3(C)*/
-		Output_result(((selection_computer - selection_player + 4) % 3 - 1),p,n);
+		Output_result(((selection_computer - selection_player + 4) % 3 - 1), p, n);
 		p[n].history[0] += 1;
 		if (p[n].history[1] > p[n].history[2])
 			p[n].history[4] = 1;
@@ -183,25 +182,26 @@ void Review_your_game_history(int n, struct Accounts* p) {
 	double overall_win_percentages = (p[n].history[1] * 1.0) / temp * 100;
 	printf("\nYour overall win percentages:%2.2f%%\n", overall_win_percentages);
 	switch (p[n].history[4]) {
-		case -1:
-			printf("\nthe game was overall a loss\n");
-			break;
-		case 0:
-			printf("\nthe game was overall a even\n"); 
-			break;
-		case 1:
-			printf("\nthe game was overall a win\n"); 
-			break;
-		default: 
-			printf("error"); 
+	case -1:
+		printf("\nthe game was overall a loss\n");
+		break;
+	case 0:
+		printf("\nthe game was overall a even\n");
+		break;
+	case 1:
+		printf("\nthe game was overall a win\n");
+		break;
+	default:
+		printf("error");
 	}
 }
 void Clear_your_game_history(int n, struct Accounts* p) {
-	for (int i = 0; i < 6; i++)
+	for (int i = 0; i < 5; i++)
 		p[n].history[i] = 0;
 	printf("\nClear your game history successfully\n");
 }
-void Logout(int total_accounts_number, struct Accounts* p) {/* the whole array is written to the file*/
+void Logout(int total_accounts_number, struct Accounts* p) {
+	/* the whole array is written to the file*/
 	FILE* fp = fopen("Game_Data.dat", "wb");
 	fwrite(p, sizeof(struct Accounts), total_accounts_number, fp);
 	fclose(fp);
@@ -218,39 +218,15 @@ int Game_accounts_number() {/*get the total number of accounts£¬if don't have th
 int Generate_computer_selection() { /* output the selection of computer return  1(A)  2(B) 3(C)*/
 	int i;
 	i = rand() % 3 + 1;/* generate the computer selection*/
-	switch (i) {
-	case 1:
-		printf("\nThe computer selection is A\n");
-		break;
-	case 2:
-		printf("\nThe computer selection is B\n");
-		break;
-	case 3:
-		printf("\nThe computer selection is C\n");
-		break;
-	default:
-		printf("\nerror\n");
-	}
+	printf("\nThe computer selection is %c\n", i + 64);/*acsii code*/
 	Sleep(1000);/* stop for a second*/
 	return i;
 }
 void Output_selection(int selection) {
-	switch (selection) {
-	case 1:
-		printf("\nYour selection is A\n");
-		break;
-	case 2:
-		printf("\nYour selection is B\n");
-		break;
-	case 3:
-		printf("\nYour selection is C\n");
-		break;
-	default:
-		printf("\nerror\n");
-	}
+	printf("\nYour selection is %c\n", selection + 64);/*acsii code*/
 	Sleep(1000);/* stop for a second*/
 }
-void Output_result(int t, struct Accounts* p,int n) {
+void Output_result(int t, struct Accounts* p, int n) {
 	if (t == 1) {
 		printf("\nYou win!!           Computer lose!!\n");
 		p[n].history[1] += 1;
